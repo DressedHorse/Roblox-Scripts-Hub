@@ -21,7 +21,10 @@ local function updateAutoShoot()
     local aiming = DH.Utils.isAimingAtPlayer()
     local now = tick()
 
-    if aiming then
+    local weapon = DH.Utils.getHeldWeapon(game.Players.LocalPlayer.Name)
+    local fast = weapon and weapon.Name:find("Rifle")
+
+    if aiming and fast then
         lostAimTime = nil
 
         if not rightMousePressed then
@@ -45,61 +48,66 @@ end
 
 -- Esp
 
+local nameTags = {}
+local fillEsps = {}
+
 local function highlightPlayer(player)
-    if player.Character and not player.Character:FindFirstChild("HighlightikMoi") then
-        local highlight = Instance.new("Highlight")
+    if fillEsps[player] then return end
 
-        highlight.Name = "HighlightikMoi"
-        highlight.Adornee = player.Character
+    local highlight = Instance.new("Highlight")
 
-        highlight.FillColor = DH.GUIs.Rivals.EspFillColor or Color3.fromRGB(0, 0, 0)
-        highlight.FillTransparency = DH.GUIs.Rivals.EspFillTransp or 0.1
+    highlight.Name = "HighlightikMoi"
+    highlight.Adornee = player.Character
 
-        highlight.OutlineColor = DH.GUIs.Rivals.EspOutlineColor or Color3.fromRGB(255, 255, 255)
-        highlight.OutlineTransparency = DH.GUIs.Rivals.EspOutlineTransp or 0.1
+    highlight.FillColor = DH.GUIs.Rivals.EspFillColor or Color3.fromRGB(0, 0, 0)
+    highlight.FillTransparency = DH.GUIs.Rivals.EspFillTransp or 0.1
 
-        highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-        highlight.Parent = player.Character
-    end
+    highlight.OutlineColor = DH.GUIs.Rivals.EspOutlineColor or Color3.fromRGB(255, 255, 255)
+    highlight.OutlineTransparency = DH.GUIs.Rivals.EspOutlineTransp or 0.1
+
+    highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+    highlight.Parent = player.Character
+
+    fillEsps[player] = player.Character.HighlightikMoi
+   
 end
 
 local function removeHighlight(player)
-    if player.Character then
-        local highlight = player.Character:FindFirstChild("HighlightikMoi")
-        if highlight then
-            highlight:Destroy()
-        end
+    if fillEsps[player] then
+        fillEsps[player]:Destroy()
+        fillEsps[player] = nil
     end
 end
 
 local function nametagPlayer(player)
-    if player.Character and not player.Character:FindFirstChild("NametagMoi") then
-        local billboardGui = Instance.new("BillboardGui")
-        billboardGui.Name = "NametagMoi"
-        billboardGui.Adornee = player.Character:FindFirstChild("Head")
-        billboardGui.Size = UDim2.new(0, 100, 0, 50)
-        billboardGui.StudsOffset = Vector3.new(0, 2, 0)
-        billboardGui.AlwaysOnTop = true
+    if nameTags[player] then return end
 
-        local textLabel = Instance.new("TextLabel")
-        textLabel.Size = UDim2.new(1, 0, 1, 0)
-        textLabel.BackgroundTransparency = 1
-        textLabel.Text = player.Name
-        textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-        textLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
-        textLabel.TextStrokeTransparency = 0
-        textLabel.Parent = billboardGui
+    local billboard = Instance.new("BillboardGui")
+    billboard.Name = "NametagMoi"
+    billboard.Size = UDim2.new(0, 200, 0, 50)
+    billboard.StudsOffset = Vector3.new(0, 3, 0)
+    billboard.Adornee = player.Character.Head
+    billboard.Parent = player.Character.Head
+    billboard.AlwaysOnTop = true
+    
+    local nameLabel = Instance.new("TextLabel")
+    nameLabel.Size = UDim2.new(1, 0, 1, 0)
+    nameLabel.BackgroundTransparency = 1
+    nameLabel.Text = player.Name
+    nameLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    nameLabel.TextStrokeTransparency = 0
+    nameLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+    nameLabel.Font = Enum.Font.GothamBold
+    nameLabel.TextSize = 16
+    nameLabel.Parent = billboard
 
-        billboardGui.Parent = player.Character
-    end
+    nameTags[player] = player.Character.Head.NametagMoi
 end 
 
 local function removeTag(player)
-    if player.Character then
-        local tag = player.Character:FindFirstChild("NametagMoi")
-        if tag then
-            tag:Destroy()
-        end
+    if nameTags[player] then
+        nameTags[player]:Destroy()
+        nameTags[player] = nil
     end
 end
 
@@ -120,6 +128,7 @@ RunService.Heartbeat:Connect(function()
                 if DH.GUIs.Rivals.FillEspEnabled then
                     highlightPlayer(player)
                 end
+
                 if DH.GUIs.Rivals.NameTagEnabled then
                     nametagPlayer(player)
                 end

@@ -67,8 +67,7 @@ local function highlightPlayer(player)
     highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
     highlight.Parent = player.Character
 
-    fillEsps[player] = player.Character.HighlightikMoi
-   
+    fillEsps[player] = player.Character.Head.HighlightikMoi
 end
 
 local function removeHighlight(player)

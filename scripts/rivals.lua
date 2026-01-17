@@ -53,7 +53,7 @@ local function highlightPlayer(player)
         highlight.Adornee = player.Character
 
         highlight.FillColor = DH.GUIs.Rivals.EspFillColor or Color3.fromRGB(0, 0, 0)
-        highlight.FillTransparency = 0
+        highlight.FillTransparency = 1
 
         highlight.OutlineColor = DH.GUIs.Rivals.EspOutlineColor or Color3.fromRGB(255, 255, 255)
         highlight.OutlineTransparency = (DH.GUIs.Rivals.EspOutlineTransparency or 10) / 100

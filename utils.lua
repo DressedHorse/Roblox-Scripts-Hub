@@ -29,7 +29,7 @@ DH.Utils.isAimingAtPlayer = function()
     local model = result.Instance:FindFirstAncestorOfClass("Model")
     if not model then return false end
 
-    print("Aimed at model: " .. model:GetFullName() .. " : " .. result:GetFullName())
+   -- print("Aimed at model: " .. model:GetFullName() .. " : " .. result:GetFullName())
     --asasas
 
 

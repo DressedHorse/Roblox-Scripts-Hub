@@ -25,7 +25,8 @@ end
 
 local placeId = game.PlaceId
 local PLACE_SCRIPT = {
-    [117398147513099] = "rivals.lua"
+    [117398147513099] = "rivals.lua",
+    [17625359962] = "rivals.lua"
 }
 
 -- Load script for the current game
@@ -40,5 +41,5 @@ if PLACE_SCRIPT[placeId] then
         print("🙌 Loaded script for place ID " .. placeId)
     end
 else
-    print("😡 Script for game " .. place .. "is not found!")
+    print("😡 Script for game " .. placeId .. "is not found!")
 end

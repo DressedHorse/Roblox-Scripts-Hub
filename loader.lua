@@ -17,9 +17,9 @@ for _, file in ipairs(files) do
 
     if not fn then
         error("Failed to load " .. file)
+    else
+        fn()
     end
-
-    fn()
 end
 
 
@@ -30,11 +30,12 @@ local PLACE_SCRIPT = {
 
 -- Load script for the current game
 if PLACE_SCRIPT[placeId] then
+    print(base .. "scripts/" .. PLACE_SCRIPT[placeId])
     local src = game:HttpGet(base .. "scripts/" .. PLACE_SCRIPT[placeId])
     local fn = loadstring(src)
 
     if not fn then
-        error("Failed to load place-specific script for place ID " .. placeId)
+        error("Failed to load script for place ID " .. placeId)
     else
         fn()
         print("🙌 Loaded script for place ID " .. placeId)

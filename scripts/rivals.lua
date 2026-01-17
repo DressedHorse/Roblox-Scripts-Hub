@@ -48,7 +48,7 @@ end
 local function highlightPlayer(player)
     if player.Character and not player.Character:FindFirstChild("HighlightikMoi") then
         local highlight = Instance.new("Highlight")
-        highlight.Name = "HighlightESP"
+        highlight.Name = "HighlightikMoi"
         highlight.Adornee = player.Character
         highlight.FillTransparency = (DH.GUIs.Rivals.EspFillTransparency or 10) / 100
         highlight.FillColor = DH.GUIs.Rivals.EspFillColor or Color3.fromRGB(0, 0, 0)

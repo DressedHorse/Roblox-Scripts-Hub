@@ -5,6 +5,7 @@ local player = Players.LocalPlayer
 local camera = workspace.CurrentCamera
 local mouse = player:GetMouse()
 
+
 local DH = getgenv().DH
 if not DH then
     error("DonumHub namespace not found")
@@ -12,7 +13,8 @@ end
 
 DH.Utils = DH.Utils or {}
 
-local function isAimingAtPlayer()
+
+DH.Utils.isAimingAtPlayer = function()
     if not player.Character then return false end
 
     local ray = camera:ScreenPointToRay(mouse.X, mouse.Y)

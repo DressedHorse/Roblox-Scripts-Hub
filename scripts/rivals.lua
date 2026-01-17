@@ -118,7 +118,8 @@ RunService.Heartbeat:Connect(function()
         updateAutoShoot()
     end
 
-    for _, player in pairs(game:GetService("Players"):GetPlayers()) do
+    if DH.GUIs.Rivals.EspNeedUpdate then
+        for _, player in pairs(game:GetService("Players"):GetPlayers()) do
             if player ~= 1 then
                 removeHighlight(player)
                 removeTag(player)   
@@ -133,7 +134,8 @@ RunService.Heartbeat:Connect(function()
             end
         end
 
-    DH.GUIs.Rivals.EspNeedUpdate = false
+        DH.GUIs.Rivals.EspNeedUpdate = false
+    end
 
 end)
 

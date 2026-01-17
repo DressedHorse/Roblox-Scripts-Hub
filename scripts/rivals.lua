@@ -83,8 +83,7 @@ RunService.Heartbeat:Connect(function()
         updateAutoShoot()
     end
 
-    if DH.GUIs.Rivals.EspNeedUpdate then
-        for _, player in pairs(game:GetService("Players"):GetPlayers()) do
+    for _, player in pairs(game:GetService("Players"):GetPlayers()) do
             if player ~= 1 then
                 removeHighlight(player)
 
@@ -94,8 +93,8 @@ RunService.Heartbeat:Connect(function()
             end
         end
 
-        DH.GUIs.Rivals.EspNeedUpdate = false
-    end
+    DH.GUIs.Rivals.EspNeedUpdate = false
+    
 end)
 
 print("💅 Скрипт для Rivals загружен")

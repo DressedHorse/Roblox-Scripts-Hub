@@ -15,7 +15,7 @@ local RELEASE_DELAY = 0.111
 local rightMousePressed = false
 local lostAimTime = nil 
 
--- Combat
+-- Combatt
 
 local function updateAutoShoot()
     local aiming = DH.Utils.isAimingAtPlayer()

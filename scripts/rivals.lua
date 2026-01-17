@@ -1,3 +1,13 @@
+local src = game:HttpGet(DH.URL_BASE .. "scripts/rivals_gui.lua")
+local fn, compileError = loadstring(src)
+
+if not fn then
+    error("Failed to load Rivals GUI: " .. tostring(compileError))
+else
+    fn()
+end
+
+
 local RunService = game:GetService("RunService")
 
 local RELEASE_DELAY = 0.21
@@ -5,7 +15,14 @@ local RELEASE_DELAY = 0.21
 local rightMousePressed = false
 local lostAimTime = nil 
 
+
 RunService.Heartbeat:Connect(function()
+    if DH.GUIs.Rivals.AutoShootEnabled then
+        updateAutoShoot()
+    end
+end)
+
+local function updateAutoShoot()
     local aiming = DH.Utils.isAimingAtPlayer()
     local now = tick()
 
@@ -29,7 +46,6 @@ RunService.Heartbeat:Connect(function()
             lostAimTime = nil
         end
     end
-
-end)
+end
 
 print("💅 Скрипт для Rivals загружен")

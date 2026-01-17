@@ -1,8 +1,8 @@
 getgenv().DH = {
-    Utils = {}
+    Utils = {},
+    GUIs = {},
+    URL_BASE = "https://raw.githubusercontent.com/DressedHorse/Roblox-Scripts-Hub/main/"
 }
-
-local base = "https://raw.githubusercontent.com/DressedHorse/Roblox-Scripts-Hub/main/"
 
 local files = {
     "utils.lua",
@@ -12,7 +12,7 @@ print("💋 Hello!")
 
 -- Load imports
 for _, file in ipairs(files) do
-    local src = game:HttpGet(base .. file)
+    local src = game:HttpGet(DH.URL_BASE .. file)
     local fn = loadstring(src)
 
     if not fn then
@@ -30,7 +30,7 @@ local PLACE_SCRIPT = {
 
 -- Load script for the current game
 if PLACE_SCRIPT[placeId] then
-    local src = game:HttpGet(base .. "scripts/" .. PLACE_SCRIPT[placeId])
+    local src = game:HttpGet(DH.URL_BASE .. "scripts/" .. PLACE_SCRIPT[placeId])
     local fn, compileError = loadstring(src)
 
     if not fn then

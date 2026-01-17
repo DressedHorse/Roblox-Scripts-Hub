@@ -72,7 +72,36 @@ local function removeHighlight(player)
     end
 end
 
+local function nametagPlayer(player)
+    if player.Character and not player.Character:FindFirstChild("NametagMoi") then
+        local billboardGui = Instance.new("BillboardGui")
+        billboardGui.Name = "NametagMoi"
+        billboardGui.Adornee = player.Character:FindFirstChild("Head")
+        billboardGui.Size = UDim2.new(0, 100, 0, 50)
+        billboardGui.StudsOffset = Vector3.new(0, 2, 0)
+        billboardGui.AlwaysOnTop = true
 
+        local textLabel = Instance.new("TextLabel")
+        textLabel.Size = UDim2.new(1, 0, 1, 0)
+        textLabel.BackgroundTransparency = 1
+        textLabel.Text = player.Name
+        textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+        textLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+        textLabel.TextStrokeTransparency = 0
+        textLabel.Parent = billboardGui
+
+        billboardGui.Parent = player.Character
+    end
+end 
+
+local function removeTag(player)
+    if player.Character then
+        local tag = player.Character:FindFirstChild("NametagMoi")
+        if tag then
+            tag:Destroy()
+        end
+    end
+end
 
 
 
@@ -86,15 +115,19 @@ RunService.Heartbeat:Connect(function()
     for _, player in pairs(game:GetService("Players"):GetPlayers()) do
             if player ~= 1 then
                 removeHighlight(player)
+                removeTag(player)   
 
                 if DH.GUIs.Rivals.FillEspEnabled then
                     highlightPlayer(player)
+                end
+                if DH.GUIs.Rivals.NameTagEnabled then
+                    nametagPlayer(player)
                 end
             end
         end
 
     DH.GUIs.Rivals.EspNeedUpdate = false
-    
+
 end)
 
 print("💅 Скрипт для Rivals загружен")

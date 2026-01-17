@@ -98,4 +98,17 @@ local EspOutTransp = EspTab:CreateSlider({
    end,
 })
 
+local EspTabDivider1 = EspTab:CreateDivider()
+
+local nameTag = EspTab:CreateToggle({
+   Name = "Nametag",
+   CurrentValue = false,
+   Flag = "NameTagToggle",
+   Callback = function(Value)
+        dhGui.NameTagEnabled = Value
+        dhGui.EspNeedUpdate = true
+   end,
+})
+
+
 

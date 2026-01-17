@@ -36,7 +36,6 @@ local Toggle = CombatTab:CreateToggle({
    Flag = "AutoShootToggle",
    Callback = function(Value)
         dhGui.AutoShootEnabled = Value
-        print("AutoShoot toggle set to: " .. tostring(Value))
    end,
 })
 

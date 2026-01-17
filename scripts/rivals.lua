@@ -15,13 +15,6 @@ local RELEASE_DELAY = 0.21
 local rightMousePressed = false
 local lostAimTime = nil 
 
-
-RunService.Heartbeat:Connect(function()
-    if DH.GUIs.Rivals.AutoShootEnabled then
-        updateAutoShoot()
-    end
-end)
-
 local function updateAutoShoot()
     local aiming = DH.Utils.isAimingAtPlayer()
     local now = tick()
@@ -47,5 +40,11 @@ local function updateAutoShoot()
         end
     end
 end
+
+RunService.Heartbeat:Connect(function()
+    if DH.GUIs.Rivals.AutoShootEnabled then
+        updateAutoShoot()
+    end
+end)
 
 print("💅 Скрипт для Rivals загружен")

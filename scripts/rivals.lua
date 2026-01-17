@@ -21,11 +21,9 @@ local function updateAutoShoot()
     local aiming = DH.Utils.isAimingAtPlayer()
     local now = tick()
 
-    local weapon = DH.Utils.getHeldWeapon(game.Players.LocalPlayer.Name)
-    local fast = weapon and weapon.Name:find("Rifle")
-    print(weapon.Name)
+ 
 
-    if aiming and fast then
+    if aiming then
         lostAimTime = nil
 
         if not rightMousePressed then

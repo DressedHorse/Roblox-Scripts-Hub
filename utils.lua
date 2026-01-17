@@ -32,3 +32,15 @@ DH.Utils.isAimingAtPlayer = function()
     return model:FindFirstChildOfClass("Humanoid")
        and Players:GetPlayerFromCharacter(model)
 end
+
+DH.Utils.getHeldWeapon = function(playerName)
+    local viewModels = Workspace:WaitForChild("ViewModels"):WaitForChild("FirstPerson")
+
+    for _, item in pairs(firstPerson:GetChildren()) do
+        if string.find(item.Name, playerName) then
+			return item
+        end
+    end
+
+    return nil
+end

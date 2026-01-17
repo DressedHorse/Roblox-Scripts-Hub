@@ -31,6 +31,7 @@ local PLACE_SCRIPT = {
 
 -- Load script for the current game
 if PLACE_SCRIPT[placeId] then
+    print(placeId)
     local src = game:HttpGet(DH.URL_BASE .. "scripts/" .. PLACE_SCRIPT[placeId])
     local fn, compileError = loadstring(src)
 

@@ -39,4 +39,6 @@ if PLACE_SCRIPT[placeId] then
         fn()
         print("🙌 Loaded script for place ID " .. placeId)
     end
+else
+    print("😡 Script for game " .. place .. "is not found!")
 end

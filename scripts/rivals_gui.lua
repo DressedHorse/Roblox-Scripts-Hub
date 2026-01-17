@@ -3,7 +3,7 @@ if not DH then
     error("DonumHub namespace not found")
 end
 
-DH.GUIs.Rivals = DH.GUIs.Rivals or {}
+DH.GUIs.Rivals = {}
 local dhGui = DH.GUIs.Rivals
 
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()

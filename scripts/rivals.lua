@@ -81,9 +81,9 @@ RunService.Heartbeat:Connect(function()
 
     if DH.GUIs.Rivals.EspNeedUpdate then
         for _, player in pairs(game:GetService("Players"):GetPlayers()) do
-            if player ~= game.Players.LocalPlayer then
+            if player ~= 1 then
                 removeHighlight(player)
-                
+
                 if DH.GUIs.Rivals.FillEspEnabled then
                     highlightPlayer(player)
                 end

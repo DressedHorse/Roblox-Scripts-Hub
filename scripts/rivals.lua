@@ -1,11 +1,9 @@
 local RunService = game:GetService("RunService")
-local Players = game:GetService("Players")
-
-local player = Players.LocalPlayer
-local camera = workspace.CurrentCamera
-local mouse = player:GetMouse()
 
 float RELEASE_DELAY = 0.21
+
+local rightMousePressed = false
+local lostAimTime = nil 
 
 RunService.Heartbeat:Connect(function()
     local aiming = Utils.isAimingAtPlayer()

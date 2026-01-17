@@ -28,9 +28,10 @@ local Window = Rayfield:CreateWindow({
     }
 })
 
+-- Combat Tab
 local CombatTab = Window:CreateTab("Combat", 4483362458)
 
-local Toggle = CombatTab:CreateToggle({
+local ShootToggle = CombatTab:CreateToggle({
    Name = "Shoot",
    CurrentValue = false,
    Flag = "AutoShootToggle",
@@ -38,4 +39,63 @@ local Toggle = CombatTab:CreateToggle({
         dhGui.AutoShootEnabled = Value
    end,
 })
+
+-- Visuals Tab
+local EspTab = Window:CreateTab("ESP", 4483362458)
+
+local FillEsp = EspTab:CreateToggle({
+   Name = "Fill ESP",
+   CurrentValue = false,
+   Flag = "FillEspToggle",
+   Callback = function(Value)
+        dhGui.FillEspEnabled = Value
+        dhGui.EspNeedUpdate = true
+   end,
+})
+
+
+local EspFillColor = EspTab:CreateColorPicker({
+    Name = "Fill Color",
+    Color = Color3.fromRGB(0,0,0),
+    Flag = "EspFillColorPicker",
+    Callback = function(Value)
+        dhGui.EspFillColor = Value
+        dhGui.EspNeedUpdate = true
+    end
+})
+local EspFillTransp = EspTab:CreateSlider({
+   Name = "Fill Transparency",
+   Range = {0, 100},
+   Increment = 1,
+   Suffix = "Bananas",
+   CurrentValue = 10,
+   Flag = "EspFillTranspSlider",
+   Callback = function(Value)
+        dhGui.EspFillTransp = Value / 100
+        dhGui.EspNeedUpdate = true
+   end,
+})
+
+local EspOutColor = EspTab:CreateColorPicker({
+    Name = "Outline Color",
+    Color = Color3.fromRGB(255,255,255),
+    Flag = "EspOutColorPicker", 
+    Callback = function(Value)
+        dhGui.EspOutlineColor = Value
+        dhGui.EspNeedUpdate = true
+    end
+})
+local EspOutTransp = EspTab:CreateSlider({
+   Name = "Outline Transparency",
+   Range = {0, 100},
+   Increment = 1,
+   Suffix = "Bananas",
+   CurrentValue = 10,
+   Flag = "EspOutTranspSlider",
+   Callback = function(Value)
+        dhGui.EspOutlineTransp = Value / 100
+        dhGui.EspNeedUpdate = true
+   end,
+})
+
 

@@ -1,3 +1,10 @@
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
+
+local player = Players.LocalPlayer
+local camera = workspace.CurrentCamera
+local mouse = player:GetMouse()
+
 local DH = getgenv().DonumHub
 if not DH then
     error("DonumHub namespace not found")

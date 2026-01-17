@@ -1,6 +1,6 @@
 local RunService = game:GetService("RunService")
 
-float RELEASE_DELAY = 0.21
+local RELEASE_DELAY = 0.21
 
 local rightMousePressed = false
 local lostAimTime = nil 

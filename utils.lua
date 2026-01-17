@@ -26,7 +26,7 @@ DH.Utils.isAimingAtPlayer = function()
     local result = workspace:Raycast(ray.Origin, ray.Direction * 2500, params)
     if not result then return false end
 
-    local model = result.Instance:FindFirstAncestorOfClass("Model")
+   --- local model = result.Instance:FindFirstAncestorOfClass("Model")
     if not model then return false end
 
     print("Aimed at model: " .. model:GetFullName() .. " : " .. result:GetFullName())

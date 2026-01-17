@@ -6,7 +6,7 @@ local rightMousePressed = false
 local lostAimTime = nil 
 
 RunService.Heartbeat:Connect(function()
-    local aiming = Utils.isAimingAtPlayer()
+    local aiming = DH.Utils.isAimingAtPlayer()
     local now = tick()
 
     if aiming then

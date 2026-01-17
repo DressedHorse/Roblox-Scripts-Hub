@@ -58,7 +58,7 @@ local function highlightPlayer(player)
         highlight.OutlineColor = DH.GUIs.Rivals.EspOutlineColor or Color3.fromRGB(255, 255, 255)
         highlight.OutlineTransparency = (DH.GUIs.Rivals.EspOutlineTransparency or 10) / 100
 
-        print(tostring((DH.GUIs.Rivals.EspOutlineTransparency or 10) / 100))
+        print(tostring(DH.GUIs.Rivals.EspOutlineTransparency))
 
         highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
         highlight.Parent = player.Character

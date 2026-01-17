@@ -30,7 +30,6 @@ DH.Utils.isAimingAtPlayer = function()
     if not model then return false end
 
    -- print("Aimed at model: " .. model:GetFullName() .. " : " .. result:GetFullName())
-    --asasas
 
     return model:FindFirstChildOfClass("Humanoid")
        and Players:GetPlayerFromCharacter(model)

@@ -8,27 +8,27 @@ local files = {
     "utils.lua",
 }
 
-local function loadFiles()
-    for _, file in ipairs(files) do
-        local src = game:HttpGet(base .. file)
-        local fn = loadstring(src)
+print("💋 Hello!")
 
-        if not fn then
-            error("Failed to load " .. file)
-        end
+-- Load imports
+for _, file in ipairs(files) do
+    local src = game:HttpGet(base .. file)
+    local fn = loadstring(src)
 
-        fn()
+    if not fn then
+        error("Failed to load " .. file)
     end
+
+    fn()
 end
 
-loadFiles()
 
-
+local placeId = game.PlaceId
 local PLACE_SCRIPT = {
     [17625359962] = "rivals.lua"
 }
 
-local placeId = game.PlaceId
+-- Load script for the current game
 if PLACE_SCRIPT[placeId] then
     local src = game:HttpGet(base .. "scripts/" .. PLACE_SCRIPT[placeId])
     local fn = loadstring(src)

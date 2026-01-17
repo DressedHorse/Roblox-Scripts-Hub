@@ -23,6 +23,7 @@ local function updateAutoShoot()
 
     local weapon = DH.Utils.getHeldWeapon(game.Players.LocalPlayer.Name)
     local fast = weapon and weapon.Name:find("Rifle")
+    print(weapon.Name)
 
     if aiming and fast then
         lostAimTime = nil

@@ -29,7 +29,7 @@ local PLACE_SCRIPT = {
     [17625359962] = "rivals.lua"
 }
 
--- Load script for the current game
+-- Load script for the current game!
 if PLACE_SCRIPT[placeId] then
     print(placeId)
     local src = game:HttpGet(DH.URL_BASE .. "scripts/" .. PLACE_SCRIPT[placeId])

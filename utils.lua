@@ -29,6 +29,8 @@ DH.Utils.isAimingAtPlayer = function()
     local model = result.Instance:FindFirstAncestorOfClass("Model")
     if not model then return false end
 
+    print("Aimed at model: " .. model:getFullName() ": " .. result:getFullName))
+
     return model:FindFirstChildOfClass("Humanoid")
        and Players:GetPlayerFromCharacter(model)
 end

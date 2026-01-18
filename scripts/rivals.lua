@@ -26,7 +26,7 @@ local function updateAutoShoot()
         lostAimTime = nil
 
         local target = DH.Utils.getPlayerOnCrosshair()
-        local heldWeapon = DH.Utils.getHeldWeaponOther(target.Name)
+        local targetHeldWeapon = DH.Utils.getHeldWeaponOther(target.Name)
         local isReflecting = DH.Utils.isReflectingWithKatana(target.Name)
 
         if not rightMousePressed and not isReflecting then
@@ -35,11 +35,28 @@ local function updateAutoShoot()
             rightMousePressed = true
         end
     elseif rightMousePressed then
+        local forceStop = false;
+        local target = DH.Utils.getPlayerOnCrosshair()
+        if target then
+            local isReflecting = DH.Utils.isReflectingWithKatana(target.Name)
+            if isReflecting then
+                forceStop = true;
+            end
+        end
+
+        local myWeapon = DH.Utils.getHeldWeapon(game:GetService("Players").LocalPlayer.Name)
+        if myWeapon and string.find(myWeapon.Name, "Sniper") then
+            RELEASE_DELAY = 0
+        else
+            RELEASE_DELAY = 0.111
+        end
+
+
         if not lostAimTime then
             lostAimTime = now 
         end
 
-        if now - lostAimTime >= RELEASE_DELAY then
+        if now - lostAimTime >= RELEASE_DELAY or forceStop then
             mouse1release()
            
             rightMousePressed = false

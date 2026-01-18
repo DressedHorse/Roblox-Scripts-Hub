@@ -109,7 +109,7 @@ local function nametagPlayer(player)
 
     local viewModels = Workspace:WaitForChild("ViewModels")
     for _, item in pairs(viewModels:GetChildren()) do
-          if string.find(item.Name, playerName) then
+          if string.find(item.Name, player.Name) then
 			weapon = item.Name
         end
     end

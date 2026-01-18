@@ -67,7 +67,7 @@ local function highlightPlayer(player)
     highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
     highlight.Parent = player.Character
 
-    fillEsps[player] = player.Character.Head.HighlightikMoi
+    fillEsps[player] = player.Character.HighlightikMoi
 end
 
 local function removeHighlight(player)
@@ -77,13 +77,11 @@ local function removeHighlight(player)
     end
 end
 
-local function nametagPlayer(player)
-    if nameTags[player] then return end
-
+local function createBillboardGui(player, text, name, offset)
     local billboard = Instance.new("BillboardGui")
-    billboard.Name = "NametagMoi"
+    billboard.Name = name
     billboard.Size = UDim2.new(0, 200, 0, 50)
-    billboard.StudsOffset = Vector3.new(0, 3, 0)
+    billboard.StudsOffset = offset
     billboard.Adornee = player.Character.Head
     billboard.Parent = player.Character.Head
     billboard.AlwaysOnTop = true
@@ -91,15 +89,34 @@ local function nametagPlayer(player)
     local nameLabel = Instance.new("TextLabel")
     nameLabel.Size = UDim2.new(1, 0, 1, 0)
     nameLabel.BackgroundTransparency = 1
-    nameLabel.Text = player.Name
+    nameLabel.Text = text
     nameLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     nameLabel.TextStrokeTransparency = 0
     nameLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
     nameLabel.Font = Enum.Font.GothamBold
-    nameLabel.TextSize = 16
+    nameLabel.TextSize = 24
     nameLabel.Parent = billboard
 
-    nameTags[player] = player.Character.Head.NametagMoi
+    return billboard
+end
+
+
+
+local function nametagPlayer(player)
+    if nameTags[player] then return end
+
+    local weapon = "None"
+
+    local viewModels = Workspace:WaitForChild("ViewModels")
+    for _, item in pairs(viewModels:GetChildren()) do
+          if string.find(item.Name, playerName) then
+			weapon = item.Name
+        end
+    end
+    
+    nameTags[player] = createBillboardGui(player, player.Name, "NameTagMoi", Vector3.new(0, 3, 0))
+    nameTags[player] = createBillboardGui(player, weapon, "NameTagMoi1", Vector3.new(0, -7, 0))
+    
 end 
 
 local function removeTag(player)

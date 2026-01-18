@@ -29,7 +29,7 @@ local Window = Rayfield:CreateWindow({
 })
 
 -- Combat Tab
-local CombatTab = Window:CreateTab("Combat", 14580701813)
+local CombatTab = Window:CreateTab("Combat", 17225649668)
 
 local ShootToggle = CombatTab:CreateToggle({
    Name = "Shoot",

@@ -94,7 +94,7 @@ local function createBillboardGui(player, text, name, offset)
     nameLabel.TextStrokeTransparency = 0
     nameLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
     nameLabel.Font = Enum.Font.GothamBold
-    nameLabel.TextSize = 24
+    nameLabel.TextSize = 19
     nameLabel.Parent = billboard
 
     return billboard

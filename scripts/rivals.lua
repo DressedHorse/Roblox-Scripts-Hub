@@ -110,12 +110,12 @@ local function nametagPlayer(player)
     local viewModels = Workspace:WaitForChild("ViewModels")
     for _, item in pairs(viewModels:GetChildren()) do
           if string.find(item.Name, player.Name) then
-			weapon = item.Name
+			weapon = string.split(string.gsub(item.Name, " ", ""), "-")[2]
         end
     end
     
     nameTags[player] = createBillboardGui(player, player.Name, "NameTagMoi", Vector3.new(0, 3, 0))
-    nameTags[player] = createBillboardGui(player, weapon, "NameTagMoi1", Vector3.new(0, -7, 0))
+    nameTags[player] = createBillboardGui(player, weapon, "NameTagMoi1", Vector3.new(0, -3, 0))
     
 end 
 
@@ -129,15 +129,21 @@ end
 
 
 -- Hooks
-
+local timeSinceUpdate = 0
 RunService.Heartbeat:Connect(function()
+    local time = tick()
+
     if DH.GUIs.Rivals.AutoShootEnabled then
         updateAutoShoot()
     end
+end)
 
-    if DH.GUIs.Rivals.EspNeedUpdate then
+RunService.RenderStepped:Connect(function(deltaTime)
+    local time = tick()
+
+    if DH.GUIs.Rivals.EspNeedUpdate or time - timeSinceUpdate >= 1 then
         for _, player in pairs(game:GetService("Players"):GetPlayers()) do
-            if player ~= 1 then
+            if player ~= game:GetService("Players").LocalPlayer then
                 removeHighlight(player)
                 removeTag(player)   
 
@@ -152,8 +158,8 @@ RunService.Heartbeat:Connect(function()
         end
 
         DH.GUIs.Rivals.EspNeedUpdate = false
+        timeSinceUpdate = time
     end
-
 end)
 
 print("💅 Скрипт для Rivals загружен")

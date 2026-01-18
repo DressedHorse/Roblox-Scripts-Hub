@@ -106,6 +106,7 @@ end
 
 
 local function nametagPlayer(player)
+    if not player.Character.Head then return end
     if nameTags[player] then return end
 
     local weapon = "None"

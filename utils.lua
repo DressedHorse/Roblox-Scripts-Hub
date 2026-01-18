@@ -35,8 +35,60 @@ DH.Utils.isAimingAtPlayer = function()
        and Players:GetPlayerFromCharacter(model)
 end
 
+DH.Utils.isReflectingWithKatana = function(playerName)
+    local heldWeapon = DH.Utils.getHeldWeaponOther(playerName)
+    if not heldWeapon then return false end
+
+    if not string.find(heldWeapon.Name, "Katana") then
+        return false
+    end
+
+    local katanaAnimator = heldWeapon:FindFirstChildWhichIsA("AnimationController"):FindFirstChild("Animator")
+    if not katanaAnimator then return false end
+
+    for _, track in ipairs(katanaAnimator:GetPlayingAnimationTracks()) do
+        if track.Animation.AnimationId:match("%d+") == "14761220206" then
+            return true
+        end
+    end
+
+    return false
+end
+
+DH.Utils.getPlayerOnCrosshair = function()
+    if not player.Character then return false end
+
+    local ray = camera:ScreenPointToRay(mouse.X, mouse.Y)
+    local params = RaycastParams.new()
+    params.FilterType = Enum.RaycastFilterType.Blacklist
+    params.FilterDescendantsInstances = { player.Character }
+    params.IgnoreWater = true
+
+    local result = workspace:Raycast(ray.Origin, ray.Direction * 2500, params)
+    if not result then return false end
+
+    local model = result.Instance:FindFirstAncestorOfClass("Model")
+    if not model then return false end
+
+   -- print("Aimed at model: " .. model:GetFullName() .. " : " .. result:GetFullName())
+
+    return Players:GetPlayerFromCharacter(model)
+end
+
 DH.Utils.getHeldWeapon = function(playerName)
     local viewModels = Workspace:WaitForChild("ViewModels"):WaitForChild("FirstPerson")
+
+    for _, item in pairs(viewModels:GetChildren()) do
+        if string.find(item.Name, playerName) then
+			return item
+        end
+    end
+
+    return nil
+end
+
+DH.Utils.getHeldWeaponOther = function(playerName)
+    local viewModels = Workspace:WaitForChild("ViewModels")
 
     for _, item in pairs(viewModels:GetChildren()) do
         if string.find(item.Name, playerName) then

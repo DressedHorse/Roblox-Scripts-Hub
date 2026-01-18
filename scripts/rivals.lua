@@ -15,18 +15,20 @@ local RELEASE_DELAY = 0.111
 local rightMousePressed = false
 local lostAimTime = nil 
 
--- Combatt
+-- Combat
 
 local function updateAutoShoot()
     local aiming = DH.Utils.isAimingAtPlayer()
     local now = tick()
 
- 
+    local isReflecting = DH.Utils.isReflectingWithKatana(target.Name)
+    local target = DH.Utils.getPlayerOnCrosshair()
+    local heldWeapon = DH.Utils.getHeldWeaponOther(target.Name)
 
     if aiming then
         lostAimTime = nil
 
-        if not rightMousePressed then
+        if not rightMousePressed and not isReflecting then
             mouse1press()
            
             rightMousePressed = true
@@ -36,7 +38,7 @@ local function updateAutoShoot()
             lostAimTime = now 
         end
 
-        if now - lostAimTime >= RELEASE_DELAY then
+        if now - lostAimTime >= RELEASE_DELAY or isReflecting then
             mouse1release()
            
             rightMousePressed = false

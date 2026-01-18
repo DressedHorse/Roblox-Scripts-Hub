@@ -38,7 +38,7 @@ end
 DH.Utils.getHeldWeapon = function(playerName)
     local viewModels = Workspace:WaitForChild("ViewModels"):WaitForChild("FirstPerson")
 
-    for _, item in pairs(firstPerson:GetChildren()) do
+    for _, item in pairs(viewModels:GetChildren()) do
         if string.find(item.Name, playerName) then
 			return item
         end

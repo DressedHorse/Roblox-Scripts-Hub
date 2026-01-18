@@ -29,7 +29,7 @@ local Window = Rayfield:CreateWindow({
 })
 
 -- Combat Tab
-local CombatTab = Window:CreateTab("Combat", 4483362458)
+local CombatTab = Window:CreateTab("Combat", 14580701813)
 
 local ShootToggle = CombatTab:CreateToggle({
    Name = "Shoot",
@@ -41,7 +41,7 @@ local ShootToggle = CombatTab:CreateToggle({
 })
 
 -- Visuals Tab
-local EspTab = Window:CreateTab("ESP", 4483362458)
+local EspTab = Window:CreateTab("ESP", 17332217644)
 
 local FillEsp = EspTab:CreateToggle({
    Name = "Fill ESP",

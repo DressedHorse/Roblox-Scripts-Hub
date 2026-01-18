@@ -28,6 +28,7 @@ local Window = Rayfield:CreateWindow({
     }
 })
 
+
 -- Combat Tab
 local CombatTab = Window:CreateTab("Combat", 17225649668)
 
@@ -37,6 +38,15 @@ local ShootToggle = CombatTab:CreateToggle({
    Flag = "AutoShootToggle",
    Callback = function(Value)
         dhGui.AutoShootEnabled = Value
+   end,
+})
+
+local AutoScopeToggle = CombatTab:CreateToggle({
+   Name = "Auto Scope",
+   CurrentValue = false,
+   Flag = "AutoScopeToggle",
+   Callback = function(Value)
+        dhGui.AutoScopeEnabled = Value
    end,
 })
 

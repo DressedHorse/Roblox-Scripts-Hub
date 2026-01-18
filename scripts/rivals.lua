@@ -9,11 +9,32 @@ end
 
 
 local RunService = game:GetService("RunService")
+local UIS = game:GetService("UserInputService")
 
+-- AutoShoot
 local RELEASE_DELAY = 0.111
 
-local rightMousePressed = false
+-- AutoScope
+local COOLDOWN = false
+local SCOPE_DELAY = 0.12
+
+
+local leftMousePressed = false
 local lostAimTime = nil 
+
+local WeaponDelays = {
+    Default = 1,
+
+    ["Sniper"] = 1.5,
+    ["Handgun"] = 0.11,
+    ["Shotgun"] = 0.7
+}
+
+
+local AUTOHOLD_WEAPONS = {
+    "Rifle", "Uzi", "PaintballGun", "Hands"
+}
+
 
 -- Combat
 
@@ -21,48 +42,100 @@ local function updateAutoShoot()
     local aiming = DH.Utils.isAimingAtPlayer()
     local now = tick()
 
+    local myPlayer = game:GetService("Players").LocalPlayer
+    local myWeaponObj = DH.Utils.getHeldWeapon(myPlayer.Name)
+    local myWeapon = myWeaponObj and myWeaponObj.Name or "None"
 
     if aiming then
         lostAimTime = nil
 
         local target = DH.Utils.getPlayerOnCrosshair()
-        local targetHeldWeapon = DH.Utils.getHeldWeaponOther(target.Name)
+        local targetHeldWeapon = target and DH.Utils.getHeldWeaponOther(target.Name)
         local isReflecting = DH.Utils.isReflectingWithKatana(target.Name)
+            or (targetHeldWeapon and string.find(targetHeldWeapon.Name, "RiotShield"))
 
-        if not rightMousePressed and not isReflecting then
-            mouse1press()
-           
-            rightMousePressed = true
-        end
-    elseif rightMousePressed then
-        local forceStop = false;
-        local target = DH.Utils.getPlayerOnCrosshair()
-        if target then
-            local isReflecting = DH.Utils.isReflectingWithKatana(target.Name)
-            if isReflecting then
-                forceStop = true;
+        if not leftMousePressed and not isReflecting then
+            if isAutoHoldWeapon(myWeapon) then
+                -- зажим ЛКМ
+                mouse1press()
+                leftMousePressed = true
+            else
+                -- спам ЛКМ с задержкой + рандом
+                task.spawn(function()
+                    leftMousePressed = true
+                    while DH.Utils.isAimingAtPlayer() do
+                        mouse1press()
+                        task.wait((WeaponDelays[myWeapon] or WeaponDelays.Default) + math.random(-5,5)/1000)
+                        mouse1release()
+                        task.wait((WeaponDelays[myWeapon] or WeaponDelays.Default) + math.random(-5,5)/1000)
+                    end
+                    leftMousePressed = false
+                end)
             end
         end
+    elseif leftMousePressed then
+        -- логика отпускания ЛКМ для зажимаемых оружий
+        if isAutoHoldWeapon(myWeapon) then
+            local forceStop = false
+            local target = DH.Utils.getPlayerOnCrosshair()
+            if target then
+                local targetHeldWeapon = DH.Utils.getHeldWeaponOther(target.Name)
+                local isReflecting = DH.Utils.isReflectingWithKatana(target.Name) 
+                    or string.find(targetHeldWeapon.Name, "RiotShield")
+                if isReflecting then
+                    forceStop = true
+                end
+            end
 
-        local myWeapon = DH.Utils.getHeldWeapon(game:GetService("Players").LocalPlayer.Name)
-        if myWeapon and string.find(myWeapon.Name, "Sniper") then
-            RELEASE_DELAY = 0
-        else
-            RELEASE_DELAY = 0.111
+            if not lostAimTime then lostAimTime = now end
+            if now - lostAimTime >= RELEASE_DELAY or forceStop then
+                mouse1release()
+                leftMousePressed = false
+                lostAimTime = nil
+            end
         end
+        -- для спам-оружий отпускание ЛКМ уже происходит автоматически в spawn
+    end
+end
 
+local function updateAutoScope(input, gp)
+    if gp then return end
+    if input.UserInputType ~= Enum.UserInputType.MouseButton1 then return end
+    if COOLDOWN then return end
 
-        if not lostAimTime then
-            lostAimTime = now 
-        end
+    COOLDOWN = true
 
-        if now - lostAimTime >= RELEASE_DELAY or forceStop then
-            mouse1release()
-           
-            rightMousePressed = false
-            lostAimTime = nil
+    -- ❌ отменяем обычный ЛКМ (он просто не пойдёт дальше)
+    task.spawn(function()
+
+        -- 👉 ПКМ DOWN (скоп)
+        mouse2press()
+
+        task.wait(0.011)
+
+        -- 👉 ЛКМ CLICK
+        mouse1press()
+        task.wait(0.123)
+        mouse1release()
+
+        -- ⏱ держим скоп
+        task.wait(SCOPE_DELAY)
+
+        -- ❎ ПКМ UP (отскоп)
+        mouse2release()
+
+        task.wait(0.01)
+        COOLDOWN = false
+    end)
+end
+
+local function isAutoHoldWeapon(name)
+    for _, w in ipairs(AUTOHOLD_WEAPONS) do
+        if string.find(name, w) then
+            return true
         end
     end
+    return false
 end
 
 -- Esp
@@ -123,7 +196,7 @@ end
 
 
 local function nametagPlayer(player)
-    if not player.Character.Head then return end
+    if not player.Character or not player.Character.Head then return end
     if nameTags[player] then return end
 
     local weapon = "None"
@@ -135,18 +208,27 @@ local function nametagPlayer(player)
         end
     end
     
-    nameTags[player] = createBillboardGui(player, player.Name, "NameTagMoi", Vector3.new(0, 3, 0))
-    nameTags[player] = createBillboardGui(player, weapon, "NameTagMoi1", Vector3.new(0, -3, 0))
+    nameTags[player] = {
+        name = createBillboardGui(player, player.Name, "NameTagMoi", Vector3.new(0, 3, 0)),
+        weapon = createBillboardGui(player, weapon, "NameTagMoi1", Vector3.new(0, -3, 0))
+     }
     
 end 
 
 local function removeTag(player)
-    if nameTags[player] then
-        nameTags[player]:Destroy()
-        nameTags[player] = nil
-    end
-end
+    local tag = nameTags[player]
+    if not tag then return end
 
+    if tag.name then
+        tag.name:Destroy()
+    end
+
+    if tag.weapon then
+        tag.weapon:Destroy()
+    end
+
+    nameTags[player] = nil
+end
 
 
 -- Hooks
@@ -180,6 +262,12 @@ RunService.RenderStepped:Connect(function(deltaTime)
 
         DH.GUIs.Rivals.EspNeedUpdate = false
         timeSinceUpdate = time
+    end
+end)
+
+UIS.InputBegan:Connect(function(input, gp)
+    if dhGui.AutoScopeEnabled then
+        updateAutoScope(input, gp)
     end
 end)
 

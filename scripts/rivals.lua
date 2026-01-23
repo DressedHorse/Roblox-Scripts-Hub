@@ -26,7 +26,7 @@ local WeaponDelays = {
     Default = 1,
 
     ["Handgun"] = 0.11,
-    ["Spray"] = 1.1,
+    ["Spray"] = 1.0,
     ["Shotgun"] = 0.7
 }
 

@@ -12,16 +12,26 @@ print("💋 Hello!")
 
 -- Load imports
 for _, file in ipairs(files) do
-    local src = game:HttpGet(DH.URL_BASE .. file)
-    local fn = loadstring(src)()
-
+    local success, src = pcall(function()
+        return game:HttpGetAsync(DH.URL_BASE .. file)
+    end)
+    
+    if not success then
+        warn("Ошибка HTTP-запроса для " .. file .. ": " .. tostring(src))
+        continue
+    end
+    
+    local fn, err = loadstring(src)
+    
     if not fn then
-        error("Failed to load " .. file)
+        error("Failed to compile " .. file .. ": " .. tostring(err))
     else
-        fn()
+        local success, execErr = pcall(fn)
+        if not success then
+            error("Failed to execute " .. file .. ": " .. tostring(execErr))
+        end
     end
 end
-
 
 local placeId = game.PlaceId
 local PLACE_SCRIPT = {

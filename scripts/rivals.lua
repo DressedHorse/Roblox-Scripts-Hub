@@ -25,7 +25,7 @@ local lostAimTime = nil
 local WeaponDelays = {
     Default = 1,
 
-    ["Sniper"] = 0.1,
+    ["Sniper"] = 0.05,
     ["Handgun"] = 0.11,
     ["Shotgun"] = 0.7
 }

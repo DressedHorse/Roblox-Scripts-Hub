@@ -25,14 +25,13 @@ local lostAimTime = nil
 local WeaponDelays = {
     Default = 1,
 
-    ["Sniper"] = 0.05,
     ["Handgun"] = 0.11,
     ["Shotgun"] = 0.7
 }
 
 
 local AUTOHOLD_WEAPONS = {
-    "Rifle", "Uzi", "PaintballGun", "Hands"
+    "Rifle", "Uzi", "PaintballGun", "Hands", "Sniper"
 }
 
 

@@ -38,6 +38,15 @@ local AUTOHOLD_WEAPONS = {
 
 -- Combat
 
+local function isAutoHoldWeapon(name)
+    for _, w in ipairs(AUTOHOLD_WEAPONS) do
+        if string.find(name, w) then
+            return true
+        end
+    end
+    return false
+end
+
 local function updateAutoShoot()
     local aiming = DH.Utils.isAimingAtPlayer()
     local now = tick()
@@ -127,15 +136,6 @@ local function updateAutoScope(input, gp)
         task.wait(0.01)
         COOLDOWN = false
     end)
-end
-
-local function isAutoHoldWeapon(name)
-    for _, w in ipairs(AUTOHOLD_WEAPONS) do
-        if string.find(name, w) then
-            return true
-        end
-    end
-    return false
 end
 
 -- Esp
@@ -266,9 +266,7 @@ RunService.RenderStepped:Connect(function(deltaTime)
 end)
 
 UIS.InputBegan:Connect(function(input, gp)
-    if dhGui.AutoScopeEnabled then
-        updateAutoScope(input, gp)
-    end
+
 end)
 
 print("💅 Скрипт для Rivals загружен")

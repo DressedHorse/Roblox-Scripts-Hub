@@ -41,15 +41,6 @@ local ShootToggle = CombatTab:CreateToggle({
    end,
 })
 
-local AutoScopeToggle = CombatTab:CreateToggle({
-   Name = "Auto Scope",
-   CurrentValue = false,
-   Flag = "AutoScopeToggle",
-   Callback = function(Value)
-        dhGui.AutoScopeEnabled = Value
-   end,
-})
-
 -- Visuals Tab
 local EspTab = Window:CreateTab("ESP", 17332217644)
 

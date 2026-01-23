@@ -13,7 +13,7 @@ print("💋 Hello!")
 -- Load imports
 for _, file in ipairs(files) do
     local src = game:HttpGet(DH.URL_BASE .. file)
-    local fn = loadstring(src)
+    local fn = loadstring(src)()
 
     if not fn then
         error("Failed to load " .. file)

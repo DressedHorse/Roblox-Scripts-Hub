@@ -1,7 +1,7 @@
 getgenv().DH = {
     Utils = {},
     GUIs = {},
-    URL_BASE = "https://cdn.statically.io/gh/DressedHorse/Roblox-Scripts-Hub/main/"
+    URL_BASE = "https://raw.githubusercontent.com/DressedHorse/Roblox-Scripts-Hub/main/"
 }
 
 local files = {

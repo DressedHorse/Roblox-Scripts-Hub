@@ -74,9 +74,9 @@ local function updateAutoShoot()
                     leftMousePressed = true
                     while DH.Utils.isAimingAtPlayer() do
                         mouse1press()
-                        task.wait((WeaponDelays[myWeapon] or WeaponDelays.Default) + math.random(-5,5)/1000)
+                        task.wait((WeaponDelays[myWeapon] or WeaponDelays.Default))
                         mouse1release()
-                        task.wait((WeaponDelays[myWeapon] or WeaponDelays.Default) + math.random(-5,5)/1000)
+                        task.wait((WeaponDelays[myWeapon] or WeaponDelays.Default))
                     end
                     leftMousePressed = false
                 end)

@@ -41,7 +41,7 @@ local ShootToggle = CombatTab:CreateToggle({
    end
 })
 
-local ShootReleaseDelaySlider = Tab:CreateSlider({
+local ShootReleaseDelaySlider = CombatTab:CreateSlider({
    Name = "Release Delay",
    Range = {0, 1000},
    Increment = 1,

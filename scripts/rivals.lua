@@ -44,17 +44,10 @@ end
 
 local function updateRMBot()
     if DH.Utils.isRightMousePressed() then
-        DH.Utils.lockCameraToHead(DH.Utils.getClosestPlayerToMouse())
+        --DH.Utils.lockCameraToHead(DH.Utils.getClosestPlayerToMouse())
 
         local targetPlayer = DH.Utils.getClosestPlayerToMouse()
-        if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("Head") then
-            local head = targetPlayer.Character.Head
-            local targetScreenPos = camera:WorldToViewportPoint(head.Position)
-
-            if targetScreenPos then
-                setcursorpos(targetScreenPos.X, targetScreenPos.Y)
-            end
-        end
+   
     end
 end
 

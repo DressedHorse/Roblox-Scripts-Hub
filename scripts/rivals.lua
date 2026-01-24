@@ -12,7 +12,7 @@ local RunService = game:GetService("RunService")
 local UIS = game:GetService("UserInputService")
 
 -- AutoShoot
-local RELEASE_DELAY = 0.111
+local RELEASE_DELAY = 0
 
 local leftMousePressed = false
 local lostAimTime = nil 
@@ -65,7 +65,7 @@ local function updateAutoShoot()
             or (targetHeldWeapon and string.find(targetHeldWeapon.Name, "RiotShield"))
 
 
-        if not leftMousePressed and not isReflecting and target.Team ~= myPlayer.Team then
+        if not leftMousePressed and not isReflecting then
             if isAutoHoldWeapon(myWeapon) then
                 -- зажим ЛКМ
                 mouse1press()
@@ -84,6 +84,7 @@ local function updateAutoShoot()
             end
         end
     end
+
     if leftMousePressed then
         -- логика отпускания ЛКМ для зажимаемых оружий
         if isAutoHoldWeapon(myWeapon) then

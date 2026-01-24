@@ -99,6 +99,7 @@ local function updateAutoShoot()
         local prePos = Players.LocalPlayer.Character and Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 
         Players.LocalPlayer.Character.HumanoidRootPart.CFrame = target.Character.HumanoidRootPart.CFrame
+        DH.Utils.lockCameraToHead(target)
         mouse1click()
         wait()
         Players.LocalPlayer.Character.HumanoidRootPart.CFrame = prePos

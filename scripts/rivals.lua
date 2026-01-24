@@ -80,7 +80,8 @@ local function updateAutoShoot()
                     leftMousePressed = true
                     while DH.Utils.isAimingAtPlayer() do
                         mouse1click()
-    
+                        
+                        print(myWeapon)
                         task.wait((WeaponDelays[myWeapon] or WeaponDelays.Default))
                     end
                     leftMousePressed = false

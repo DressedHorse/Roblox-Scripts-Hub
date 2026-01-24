@@ -28,7 +28,7 @@ local WeaponDelays = {
 
 
 local AUTOHOLD_WEAPONS = {
-    "Rifle", "Uzi", "PaintballGun", "Hands"
+    "Rifle", "Uzi", "PaintballGun", "Fists"
 }
 
 

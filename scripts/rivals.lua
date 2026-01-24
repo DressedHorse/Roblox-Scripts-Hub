@@ -81,26 +81,26 @@ local function updateAutoShoot()
                 -- спам ЛКМ с задержкой
                 task.spawn(function()
                     leftMousePressed = true
-                    
-                    local Players = game:GetService("Players")
-                    local target = DH.Utils.getClosestPlayerToMouse()
-                    local prePos = Players.LocalPlayer.Character and Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-
-                    Players.LocalPlayer.Character.HumanoidRootPart.CFrame = target.Character.HumanoidRootPart.CFrame
     
-
                     while DH.Utils.isAimingAtPlayer() do
                         mouse1click()
                         
                         task.wait((WeaponDelays[myWeapon] or WeaponDelays.Default))
                     end
+
                     leftMousePressed = false
-
-
-                    Players.LocalPlayer.Character.HumanoidRootPart.CFrame = prePos
                 end)
             end
         end
+    else
+        local Players = game:GetService("Players")
+        local target = DH.Utils.getClosestPlayerToMouse()
+        local prePos = Players.LocalPlayer.Character and Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+
+        Players.LocalPlayer.Character.HumanoidRootPart.CFrame = target.Character.HumanoidRootPart.CFrame
+        mouse1click()
+        wait()
+        Players.LocalPlayer.Character.HumanoidRootPart.CFrame = prePos
     end
 
     -- Устанавливаем lostAimTime только если потеряли аим в этом кадре

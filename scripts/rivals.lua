@@ -83,6 +83,7 @@ local function updateAutoShoot()
                 end)
             end
         end
+    end
     if leftMousePressed then
         -- логика отпускания ЛКМ для зажимаемых оружий
         if isAutoHoldWeapon(myWeapon) then

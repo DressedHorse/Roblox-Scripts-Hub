@@ -62,6 +62,9 @@ local function updateAutoShoot()
         lostAimTime = nil
 
         local target = DH.Utils.getPlayerOnCrosshair()
+
+        if target.Team == myPlayer.Team then return end
+
         local targetHeldWeapon = target and DH.Utils.getHeldWeaponOther(target.Name)
         local isReflecting = DH.Utils.isReflectingWithKatana(target.Name)
             or (targetHeldWeapon and string.find(targetHeldWeapon.Name, "RiotShield"))

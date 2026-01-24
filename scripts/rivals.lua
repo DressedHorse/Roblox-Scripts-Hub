@@ -266,6 +266,7 @@ UIS.InputBegan:Connect(function(input, gp)
     if gameProcessed then return end -- если клик съел GUI
 
        task.spawn(function()
+            local Players = game:GetService("Players")
             local target = DH.Utils.getClosestPlayerToMouse()
             local prePos = Players.LocalPlayer.Character and Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 

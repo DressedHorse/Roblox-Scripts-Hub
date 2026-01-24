@@ -66,7 +66,7 @@ local function updateAutoShoot()
 
         local targetHeldWeapon = target and DH.Utils.getHeldWeaponOther(target.Name)
         local isReflecting = DH.Utils.isReflectingWithKatana(target.Name)
-            or (targetHeldWeapon and string.find(targetHeldWeapon.Name, "RiotShield"))
+            or (targetHeldWeapon and string.find(targetHeldWeapon.Name, "Riot"))
 
 
         if not leftMousePressed and not isReflecting then

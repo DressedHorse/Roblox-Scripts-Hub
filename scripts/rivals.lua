@@ -94,7 +94,6 @@ local function updateAutoShoot()
             local forceStop = false
             local target = DH.Utils.getPlayerOnCrosshair()
             if target then
-        
                 local targetHeldWeapon = DH.Utils.getHeldWeaponOther(target.Name)
 
                 if targetHeldWeapon then
@@ -108,7 +107,7 @@ local function updateAutoShoot()
             end
 
             if not lostAimTime and not target then lostAimTime = now end
-            if not target and now - lostAimTime >= RELEASE_DELAY or forceStop then
+            if (not target and now - lostAimTime >= RELEASE_DELAY) or forceStop or DH.Utils.isReflectingWithKatana(target) then
                 mouse1release()
                 leftMousePressed = false
                 lostAimTime = nil

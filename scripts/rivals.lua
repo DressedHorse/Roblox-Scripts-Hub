@@ -252,7 +252,21 @@ RunService.RenderStepped:Connect(function(deltaTime)
 end)
 
 UIS.InputBegan:Connect(function(input, gp)
+    if gameProcessed then return end -- если клик съел GUI
 
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        local target = DH.Utils.getClosestPlayerToMouse()
+
+        local myChar = game:GetService("Players").LocalPlayer.Character
+        local targetChar = target.Character
+
+        local myHRP = myChar:FindFirstChild("HumanoidRootPart")
+        local targetHRP = targetChar:FindFirstChild("HumanoidRootPart")
+
+        if myHRP and targetHRP then
+            targetHRP.CFrame = myHRP.CFrame
+        end
+    end
 end)
 
 print("💅 Скрипт для Rivals загружен")

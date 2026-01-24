@@ -271,7 +271,7 @@ UIS.InputBegan:Connect(function(input, gp)
             local prePos = Players.LocalPlayer.Character and Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 
             Players.LocalPlayer.Character.HumanoidRootPart.CFrame = target.Character.HumanoidRootPart.CFrame
-            task.wait(0.1)
+            task.wait(0.25)
             Players.LocalPlayer.Character.HumanoidRootPart.CFrame = prePos
         end)
 end)

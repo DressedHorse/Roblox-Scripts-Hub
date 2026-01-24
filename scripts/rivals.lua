@@ -211,14 +211,14 @@ RunService.Heartbeat:Connect(function()
     if DH.GUIs.Rivals.RMBotToggle then
         updateRMBot()
     end
-end)
-
-RunService.RenderStepped:Connect(function(deltaTime)
-    local time = tick()
 
     if DH.GUIs.Rivals.AutoShootEnabled then
         updateAutoShoot()
     end
+end)
+
+RunService.RenderStepped:Connect(function(deltaTime)
+    local time = tick()
 
     if DH.GUIs.Rivals.EspNeedUpdate or time - timeSinceUpdate >= 1 then
         for _, player in pairs(game:GetService("Players"):GetPlayers()) do

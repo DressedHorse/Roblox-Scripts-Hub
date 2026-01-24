@@ -50,6 +50,15 @@ local function updateRMBot()
     end
 end
 
+UIS.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+    
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        DH.Utils.lockCameraToHead(DH.Utils.getClosestPlayerToMouse())
+    end
+end)
+
+
 local function updateAutoShoot()
     local aiming = DH.Utils.isAimingAtPlayer()
     local now = tick()
@@ -69,7 +78,6 @@ local function updateAutoShoot()
 
         if not leftMousePressed and not isReflecting then
             if isAutoHoldWeapon(myWeapon) then
-                DH.Utils.lockCameraToHead(DH.Utils.getClosestPlayerToMouse())
                 -- зажим ЛКМ
                 mouse1press()
                 leftMousePressed = true
@@ -78,7 +86,6 @@ local function updateAutoShoot()
                 task.spawn(function()
                     leftMousePressed = true
                     while DH.Utils.isAimingAtPlayer() do
-                        DH.Utils.lockCameraToHead(DH.Utils.getClosestPlayerToMouse())
                         mouse1click()
     
                         task.wait((WeaponDelays[myWeapon] or WeaponDelays.Default))

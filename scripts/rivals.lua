@@ -57,7 +57,8 @@ local function updateAutoShoot()
 
     local myPlayer = game:GetService("Players").LocalPlayer
     local myWeaponObj = DH.Utils.getHeldWeapon(myPlayer.Name)
-    local myWeapon = myWeaponObj and myWeaponObj.Name or "None"
+    local myWeapon = myWeaponObj and myWeaponObj.Name or "User - None - None"
+    myWeapon = string.split(string.gsub(myWeapon, " ", ""), "-")[2]
 
     if aiming then
         lostAimTime = nil

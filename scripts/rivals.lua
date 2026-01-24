@@ -99,10 +99,19 @@ local function updateAutoShoot()
         local target = DH.Utils.getClosestPlayerToMouse()
         local prePos = Players.LocalPlayer.Character and Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 
-        Players.LocalPlayer.Character.HumanoidRootPart.CFrame = target.Character.HumanoidRootPart.CFrame
+        local lookVector = target.Character.HumanoidRootPart.CFrame.LookVector
+
+		-- CFrame за спиной + смещение вниз
+		local newCFrame = CFrame.new(
+			target.Character.HumanoidRootPart.Position - lookVector * 2 - Vector3.new(0, 2, 0)
+		)
+
+        Players.LocalPlayer.Character.HumanoidRootPart.CFrame = newCFrame
         DH.Utils.lockCameraToHead(target)
+
         mouse1click()
         wait()
+
         Players.LocalPlayer.Character.HumanoidRootPart.CFrame = prePos
     end
 

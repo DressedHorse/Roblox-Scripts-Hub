@@ -14,6 +14,7 @@ local UIS = game:GetService("UserInputService")
 
 local leftMousePressed = false
 local lostAimTime = nil 
+local wasAimingLastFrame = false -- добавляем переменную для отслеживания состояния в предыдущем кадре
 
 local WeaponDelays = {
     Default = 1,
@@ -58,6 +59,9 @@ local function updateAutoShoot()
     local myWeapon = myWeaponObj and myWeaponObj.Name or "User - None - None"
     myWeapon = string.split(string.gsub(myWeapon, " ", ""), "-")[2]
 
+    -- Проверяем, потеряли ли мы аим в этом кадре (был аим в прошлом, но нет сейчас)
+    local lostAimThisFrame = wasAimingLastFrame and not aiming
+    
     if aiming then
         lostAimTime = nil
 
@@ -80,13 +84,17 @@ local function updateAutoShoot()
                     while DH.Utils.isAimingAtPlayer() do
                         mouse1click()
                         
-                        print(myWeapon)
                         task.wait((WeaponDelays[myWeapon] or WeaponDelays.Default))
                     end
                     leftMousePressed = false
                 end)
             end
         end
+    end
+
+    -- Устанавливаем lostAimTime только если потеряли аим в этом кадре
+    if lostAimThisFrame then
+        lostAimTime = now
     end
 
     if leftMousePressed then
@@ -107,15 +115,20 @@ local function updateAutoShoot()
                 end
             end
 
-            if not lostAimTime and not target then lostAimTime = now end
-            if (not target and now - lostAimTime >= (DH.GUIs.Rivals.AutoShootReleaseDelay or 0)) or forceStop or (target and DH.Utils.isReflectingWithKatana(target.Name)) then
+            -- Используем существующий lostAimTime (установленный выше)
+            if (not aiming and lostAimTime and now - lostAimTime >= (DH.GUIs.Rivals.AutoShootReleaseDelay or 0)) 
+               or forceStop or (target and DH.Utils.isReflectingWithKatana(target.Name)) then
                 mouse1release()
+
                 leftMousePressed = false
                 lostAimTime = nil
             end
         end
         -- для спам-оружий отпускание ЛКМ уже происходит автоматически в spawn
     end
+    
+    -- Обновляем состояние для следующего кадра
+    wasAimingLastFrame = aiming
 end
 
 -- Esp

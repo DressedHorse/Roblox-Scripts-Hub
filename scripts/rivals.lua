@@ -98,7 +98,7 @@ local function updateAutoShoot()
                 end
             end
 
-            if not lostAimTime then lostAimTime = now end
+            if not lostAimTime and not target then lostAimTime = now end
             if now - lostAimTime >= RELEASE_DELAY or forceStop then
                 mouse1release()
                 leftMousePressed = false

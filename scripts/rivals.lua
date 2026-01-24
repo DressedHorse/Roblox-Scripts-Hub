@@ -92,11 +92,16 @@ local function updateAutoShoot()
             local forceStop = false
             local target = DH.Utils.getPlayerOnCrosshair()
             if target then
+        
                 local targetHeldWeapon = DH.Utils.getHeldWeaponOther(target.Name)
-                local isReflecting = DH.Utils.isReflectingWithKatana(target.Name) 
+
+                if (targetHeldWeapon) then
+                    local isReflecting = DH.Utils.isReflectingWithKatana(target.Name) 
                     or string.find(targetHeldWeapon.Name, "RiotShield")
-                if isReflecting then
-                    forceStop = true
+
+                    if isReflecting then
+                        forceStop = true
+                    end
                 end
             end
 

@@ -209,7 +209,7 @@ local timeSinceUpdate = 0
 RunService.Heartbeat:Connect(function()
     local time = tick()
 
-    if DH.GUIs.Rivals.RMBotToggle then
+    if DH.GUIs.Rivals.RMBotEnabled then
         updateRMBot()
     end
 

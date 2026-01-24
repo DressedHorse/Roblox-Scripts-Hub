@@ -46,7 +46,7 @@ local RMBotToggle = CombatTab:CreateToggle({
    CurrentValue = false,
    Flag = "RMBotToggle",
    Callback = function(Value)
-        dhGui.AutoShootEnabled = Value
+        dhGui.RMBotEnabled = Value
    end
 })
 

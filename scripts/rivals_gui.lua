@@ -38,7 +38,7 @@ local ShootToggle = CombatTab:CreateToggle({
    Flag = "AutoShootToggle",
    Callback = function(Value)
         dhGui.AutoShootEnabled = Value
-   end,
+   end
 })
 
 local RMBotToggle = CombatTab:CreateToggle({
@@ -46,8 +46,8 @@ local RMBotToggle = CombatTab:CreateToggle({
    CurrentValue = false,
    Flag = "RMBotToggle",
    Callback = function(Value)
-        dhGui.RMBotToggle = Value
-   end,
+        dhGui.AutoShootEnabled = Value
+   end
 })
 
 
@@ -61,7 +61,7 @@ local FillEsp = EspTab:CreateToggle({
    Callback = function(Value)
         dhGui.FillEspEnabled = Value
         dhGui.EspNeedUpdate = true
-   end,
+   end
 })
 
 
@@ -84,7 +84,7 @@ local EspFillTransp = EspTab:CreateSlider({
    Callback = function(Value)
         dhGui.EspFillTransp = Value / 100
         dhGui.EspNeedUpdate = true
-   end,
+   end
 })
 
 local EspOutColor = EspTab:CreateColorPicker({
@@ -106,7 +106,7 @@ local EspOutTransp = EspTab:CreateSlider({
    Callback = function(Value)
         dhGui.EspOutlineTransp = Value / 100
         dhGui.EspNeedUpdate = true
-   end,
+   end
 })
 
 local EspTabDivider1 = EspTab:CreateDivider()
@@ -118,7 +118,7 @@ local nameTag = EspTab:CreateToggle({
    Callback = function(Value)
         dhGui.NameTagEnabled = Value
         dhGui.EspNeedUpdate = true
-   end,
+   end
 })
 
 

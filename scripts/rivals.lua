@@ -97,8 +97,8 @@ local function updateAutoShoot()
         
                 local targetHeldWeapon = DH.Utils.getHeldWeaponOther(target.Name)
 
-                if (targetHeldWeapon) then
-                    local isReflecting = DH.Utils.isReflectingWithKatana(target.Name) 
+                if targetHeldWeapon then
+                    local isReflecting = string.find(targetHeldWeapon.Name, "Katana")
                     or string.find(targetHeldWeapon.Name, "RiotShield")
 
                     if isReflecting then

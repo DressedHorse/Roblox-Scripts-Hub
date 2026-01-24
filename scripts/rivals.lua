@@ -81,12 +81,23 @@ local function updateAutoShoot()
                 -- спам ЛКМ с задержкой
                 task.spawn(function()
                     leftMousePressed = true
+                    
+                    local Players = game:GetService("Players")
+                    local target = DH.Utils.getClosestPlayerToMouse()
+                    local prePos = Players.LocalPlayer.Character and Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+
+                    Players.LocalPlayer.Character.HumanoidRootPart.CFrame = target.Character.HumanoidRootPart.CFrame
+    
+
                     while DH.Utils.isAimingAtPlayer() do
                         mouse1click()
                         
                         task.wait((WeaponDelays[myWeapon] or WeaponDelays.Default))
                     end
                     leftMousePressed = false
+
+
+                    Players.LocalPlayer.Character.HumanoidRootPart.CFrame = prePos
                 end)
             end
         end
@@ -262,18 +273,12 @@ RunService.RenderStepped:Connect(function(deltaTime)
     end
 end)
 
-UIS.InputBegan:Connect(function(input, gp)
-    if gameProcessed then return end -- если клик съел GUI
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-       task.spawn(function()
-            local Players = game:GetService("Players")
-            local target = DH.Utils.getClosestPlayerToMouse()
-            local prePos = Players.LocalPlayer.Character and Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-
-            Players.LocalPlayer.Character.HumanoidRootPart.CFrame = target.Character.HumanoidRootPart.CFrame
-            task.wait(0.25)
-            Players.LocalPlayer.Character.HumanoidRootPart.CFrame = prePos
-        end)
-end)
+local useItem = ReplicatedStorage
+	:WaitForChild("Remotes")
+	:WaitForChild("Replication")
+	:WaitForChild("Fighter")
+	:WaitForChild("UseItem")
 
 print("💅 Скрипт для Rivals загружен")

@@ -44,10 +44,9 @@ end
 
 local function updateRMBot()
     if DH.Utils.isRightMousePressed() then
-        --DH.Utils.lockCameraToHead(DH.Utils.getClosestPlayerToMouse())
+        DH.Utils.lockCameraToHead(DH.Utils.getClosestPlayerToMouse())
 
         local targetPlayer = DH.Utils.getClosestPlayerToMouse()
-   
     end
 end
 

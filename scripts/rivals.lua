@@ -76,7 +76,7 @@ local function updateAutoShoot()
             if isAutoHoldWeapon(myWeapon) then
                 -- зажим ЛКМ
                 mouse1press()
-                leftMousePressed = true
+                leftMousePressed = true 
             else
                 -- спам ЛКМ с задержкой
                 task.spawn(function()
@@ -265,6 +265,14 @@ end)
 UIS.InputBegan:Connect(function(input, gp)
     if gameProcessed then return end -- если клик съел GUI
 
+       task.spawn(function()
+            local target = DH.Utils.getClosestPlayerToMouse()
+            local prePos = Players.LocalPlayer.Character and Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+
+            Players.LocalPlayer.Character.HumanoidRootPart.CFrame = target.Character.HumanoidRootPart.CFrame
+            task.wait(0.1)
+            Players.LocalPlayer.Character.HumanoidRootPart.CFrame = prePos
+        end)
 end)
 
 print("💅 Скрипт для Rivals загружен")

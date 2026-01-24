@@ -14,11 +14,6 @@ local UIS = game:GetService("UserInputService")
 -- AutoShoot
 local RELEASE_DELAY = 0.111
 
--- AutoScope
-local COOLDOWN = false
-local SCOPE_DELAY = 0.12
-
-
 local leftMousePressed = false
 local lostAimTime = nil 
 
@@ -73,9 +68,8 @@ local function updateAutoShoot()
                 task.spawn(function()
                     leftMousePressed = true
                     while DH.Utils.isAimingAtPlayer() do
-                        mouse1press()
-                        task.wait((WeaponDelays[myWeapon] or WeaponDelays.Default))
-                        mouse1release()
+                        mouse1click()
+    
                         task.wait((WeaponDelays[myWeapon] or WeaponDelays.Default))
                     end
                     leftMousePressed = false
@@ -105,37 +99,6 @@ local function updateAutoShoot()
         end
         -- для спам-оружий отпускание ЛКМ уже происходит автоматически в spawn
     end
-end
-
-local function updateAutoScope(input, gp)
-    if gp then return end
-    if input.UserInputType ~= Enum.UserInputType.MouseButton1 then return end
-    if COOLDOWN then return end
-
-    COOLDOWN = true
-
-    -- ❌ отменяем обычный ЛКМ (он просто не пойдёт дальше)
-    task.spawn(function()
-
-        -- 👉 ПКМ DOWN (скоп)
-        mouse2press()
-
-        task.wait(0.011)
-
-        -- 👉 ЛКМ CLICK
-        mouse1press()
-        task.wait(0.123)
-        mouse1release()
-
-        -- ⏱ держим скоп
-        task.wait(SCOPE_DELAY)
-
-        -- ❎ ПКМ UP (отскоп)
-        mouse2release()
-
-        task.wait(0.01)
-        COOLDOWN = false
-    end)
 end
 
 -- Esp
@@ -236,13 +199,14 @@ local timeSinceUpdate = 0
 RunService.Heartbeat:Connect(function()
     local time = tick()
 
-    if DH.GUIs.Rivals.AutoShootEnabled then
-        updateAutoShoot()
-    end
 end)
 
 RunService.RenderStepped:Connect(function(deltaTime)
     local time = tick()
+
+    if DH.GUIs.Rivals.AutoShootEnabled then
+        updateAutoShoot()
+    end
 
     if DH.GUIs.Rivals.EspNeedUpdate or time - timeSinceUpdate >= 1 then
         for _, player in pairs(game:GetService("Players"):GetPlayers()) do

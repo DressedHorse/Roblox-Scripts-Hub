@@ -22,7 +22,7 @@ local WeaponDelays = {
 
     ["Sniper"] = 1,
     ["Handgun"] = 0.14,
-    ["Spray"] = 0.99,
+    ["Spray"] = 0.31,
     ["Shotgun"] = 0.7
 }
 

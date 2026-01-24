@@ -1,5 +1,6 @@
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
 
 local player = Players.LocalPlayer
 local camera = workspace.CurrentCamera
@@ -13,6 +14,47 @@ end
 
 DH.Utils = DH.Utils or {}
 
+
+DH.Utils.isRightMousePressed = function()
+    return UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton2)
+end
+
+DH.Utils.getClosestPlayerToMouse = function()
+    local closestPlayer = nil
+    local shortestDistance = math.huge
+    local mousePosition = UserInputService:GetMouseLocation()
+
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= localPlayer and player.Team ~= localPlayer.Team and player.Character and player.Character:FindFirstChild("Head") then
+            local head = player.Character.Head
+            local headPosition, onScreen = camera:WorldToViewportPoint(head.Position)
+
+            if onScreen then
+                local screenPosition = Vector2.new(headPosition.X, headPosition.Y)
+                local distance = (screenPosition - mousePosition).Magnitude
+
+                if distance < shortestDistance then
+                    closestPlayer = player
+                    shortestDistance = distance
+                end
+            end
+        end
+    end
+
+    return closestPlayer
+end
+
+DH.Utils.lockCameraToHead = function(targetPlayer)
+    if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("Head") then
+        local head = targetPlayer.Character.Head
+        local headPosition = camera:WorldToViewportPoint(head.Position)
+        if headPosition.Z > 0 then
+            local cameraPosition = camera.CFrame.Position
+            local direction = (head.Position - cameraPosition).Unit
+            camera.CFrame = CFrame.new(cameraPosition, head.Position)
+        end
+    end
+end
 
 DH.Utils.isAimingAtPlayer = function()
     if not player.Character then return false end

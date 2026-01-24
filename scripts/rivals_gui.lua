@@ -41,6 +41,16 @@ local ShootToggle = CombatTab:CreateToggle({
    end,
 })
 
+local RMBotToggle = CombatTab:CreateToggle({
+   Name = "RMBot",
+   CurrentValue = false,
+   Flag = "RMBotToggle",
+   Callback = function(Value)
+        dhGui.RMBotToggle = Value
+   end,
+})
+
+
 -- Visuals Tab
 local EspTab = Window:CreateTab("ESP", 17332217644)
 

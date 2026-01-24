@@ -42,6 +42,12 @@ local function isAutoHoldWeapon(name)
     return false
 end
 
+local function updateRMBot()
+    if DH.Utils.isRightMousePressed() then
+        DH.Utils.lockCameraToHead(DH.Utils.getClosestPlayerToMouse())
+    end
+end
+
 local function updateAutoShoot()
     local aiming = DH.Utils.isAimingAtPlayer()
     local now = tick()
@@ -58,7 +64,8 @@ local function updateAutoShoot()
         local isReflecting = DH.Utils.isReflectingWithKatana(target.Name)
             or (targetHeldWeapon and string.find(targetHeldWeapon.Name, "RiotShield"))
 
-        if not leftMousePressed and not isReflecting then
+
+        if not leftMousePressed and not isReflecting and target.Team ~= myPlayer.Team then
             if isAutoHoldWeapon(myWeapon) then
                 -- зажим ЛКМ
                 mouse1press()
@@ -76,7 +83,7 @@ local function updateAutoShoot()
                 end)
             end
         end
-    elseif leftMousePressed then
+    if leftMousePressed then
         -- логика отпускания ЛКМ для зажимаемых оружий
         if isAutoHoldWeapon(myWeapon) then
             local forceStop = false
@@ -199,6 +206,9 @@ local timeSinceUpdate = 0
 RunService.Heartbeat:Connect(function()
     local time = tick()
 
+    if DH.GUIs.Rivals.RMBotToggle then
+        updateRMBot()
+    end
 end)
 
 RunService.RenderStepped:Connect(function(deltaTime)

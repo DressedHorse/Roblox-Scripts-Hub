@@ -92,8 +92,9 @@ local function updateAutoShoot()
                 end)
             end
         end
-    else
-        local Players = game:GetService("Players")
+    end
+
+    local Players = game:GetService("Players")
         local target = DH.Utils.getClosestPlayerToMouse()
         local prePos = Players.LocalPlayer.Character and Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 
@@ -101,7 +102,6 @@ local function updateAutoShoot()
         mouse1click()
         wait()
         Players.LocalPlayer.Character.HumanoidRootPart.CFrame = prePos
-    end
 
     -- Устанавливаем lostAimTime только если потеряли аим в этом кадре
     if lostAimThisFrame then

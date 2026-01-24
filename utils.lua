@@ -24,9 +24,9 @@ DH.Utils.getClosestPlayerToMouse = function()
     local shortestDistance = math.huge
     local mousePosition = UserInputService:GetMouseLocation()
 
-    for _, player in ipairs(Players:GetPlayers()) do
-        if player ~= localPlayer and player.Character and player.Character:FindFirstChild("Head") then
-            local head = player.Character.Head
+    for _, player1 in ipairs(Players:GetPlayers()) do
+        if player1 ~= player and player1.Character and player1.Character:FindFirstChild("Head") then
+            local head = player1.Character.Head
             local headPosition, onScreen = camera:WorldToViewportPoint(head.Position)
 
             if onScreen then
@@ -34,7 +34,7 @@ DH.Utils.getClosestPlayerToMouse = function()
                 local distance = (screenPosition - mousePosition).Magnitude
 
                 if distance < shortestDistance then
-                    closestPlayer = player
+                    closestPlayer = player1
                     shortestDistance = distance
                 end
             end

@@ -36,7 +36,8 @@ end
 local placeId = game.PlaceId
 local PLACE_SCRIPT = {
     [117398147513099] = "rivals.lua",
-    [17625359962] = "rivals.lua"
+    [17625359962] = "rivals.lua",
+    [133215910299950] = "rivals.lua"
 }
 
 -- Load script for the current game!

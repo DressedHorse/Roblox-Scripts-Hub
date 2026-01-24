@@ -108,7 +108,7 @@ local function updateAutoShoot()
             end
 
             if not lostAimTime and not target then lostAimTime = now end
-            if (not target and now - lostAimTime >= (DH.GUIs.Rivals.AutoShootReleaseDelay or 0)) or forceStop or DH.Utils.isReflectingWithKatana(target.Name) then
+            if (not target and now - lostAimTime >= (DH.GUIs.Rivals.AutoShootReleaseDelay or 0)) or forceStop or (target and DH.Utils.isReflectingWithKatana(target.Name)) then
                 mouse1release()
                 leftMousePressed = false
                 lostAimTime = nil

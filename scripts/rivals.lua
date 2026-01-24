@@ -50,15 +50,6 @@ local function updateRMBot()
     end
 end
 
-UIS.InputBegan:Connect(function(input, gameProcessed)
-    if gameProcessed then return end
-    
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        DH.Utils.lockCameraToHead(DH.Utils.getClosestPlayerToMouse())
-    end
-end)
-
-
 local function updateAutoShoot()
     local aiming = DH.Utils.isAimingAtPlayer()
     local now = tick()

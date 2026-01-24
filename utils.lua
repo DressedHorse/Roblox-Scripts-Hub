@@ -25,7 +25,7 @@ DH.Utils.getClosestPlayerToMouse = function()
     local mousePosition = UserInputService:GetMouseLocation()
 
     for _, playerA in ipairs(Players:GetPlayers()) do
-        if playerA ~= player and playerA.Team ~= player.Team and playerA.Character and playerA.Character.Head then
+        if playerA ~= player and playerA.Character and playerA.Character.Head then
             local head = playerA.Character.Head
 
             local headPosition, onScreen = camera:WorldToViewportPoint(head.Position)

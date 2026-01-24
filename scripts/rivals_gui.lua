@@ -41,6 +41,18 @@ local ShootToggle = CombatTab:CreateToggle({
    end
 })
 
+local ShootReleaseDelaySlider = Tab:CreateSlider({
+   Name = "Release Delay",
+   Range = {0, 1000},
+   Increment = 1,
+   Suffix = "",
+   CurrentValue = 10,
+   Flag = "ShootReleaseDelaySlider",
+   Callback = function(Value)
+        dhGui.AutoShootReleaseDelay = Value
+   end,
+})
+
 local RMBotToggle = CombatTab:CreateToggle({
    Name = "RMBot",
    CurrentValue = false,

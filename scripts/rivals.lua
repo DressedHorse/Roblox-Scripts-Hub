@@ -21,7 +21,7 @@ local WeaponDelays = {
     Default = 1,
 
     ["Sniper"] = 1,
-    ["Handgun"] = 0.01,
+    ["Handgun"] = 0.1,
     ["Spray"] = 0.99,
     ["Shotgun"] = 0.7
 }
@@ -75,7 +75,7 @@ local function updateAutoShoot()
                 mouse1press()
                 leftMousePressed = true
             else
-                -- спам ЛКМ с задержкой + рандом
+                -- спам ЛКМ с задержкой
                 task.spawn(function()
                     leftMousePressed = true
                     while DH.Utils.isAimingAtPlayer() do

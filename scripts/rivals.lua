@@ -98,7 +98,7 @@ local function updateAutoShoot()
 
                 if targetHeldWeapon then
                     local isReflecting = string.find(targetHeldWeapon.Name, "Katana")
-                    or string.find(targetHeldWeapon.Name, "RiotShield")
+                    or string.find(targetHeldWeapon.Name, "Riot")
 
                     if isReflecting then
                         forceStop = true

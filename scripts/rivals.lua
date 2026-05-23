@@ -1,3 +1,5 @@
+print("rivals!")
+
 local src = game:HttpGet(DH.URL_BASE .. "scripts/rivals_gui.lua")
 local fn, compileError = loadstring(src)
 
@@ -5,6 +7,7 @@ if not fn then
     error("Failed to load Rivals GUI: " .. tostring(compileError))
 else
     fn()
+    print("Loaded gui")
 end
 
 
